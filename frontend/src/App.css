@@ -7,8 +7,18 @@
 
 .app-header {
   text-align: center;
-  padding: 1.5rem 1rem 1rem;
+  padding: 1rem 1.5rem 0.75rem;
   border-bottom: 1px solid var(--border);
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title {
+  text-align: center;
 }
 
 .app-header h1 {
@@ -22,7 +32,18 @@
 .subtitle {
   color: var(--text-dim);
   font-size: 0.85rem;
-  margin-top: 0.25rem;
+  margin-top: 0.15rem;
+}
+
+.github-link {
+  color: var(--text-dim);
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.github-link:hover {
+  color: var(--text);
 }
 
 .app-main {
@@ -53,6 +74,33 @@
 .dot.green { background: var(--green); box-shadow: 0 0 6px var(--green-glow); }
 .dot.yellow { background: var(--yellow); }
 .dot.red { background: var(--red); }
+
+.cold-start-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+  padding: 0.4rem 1rem;
+  font-size: 0.75rem;
+  color: var(--yellow);
+  background: rgba(255, 165, 2, 0.08);
+  border-radius: 20px;
+  display: inline-flex;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border);
+  border-top-color: var(--yellow);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
 /* ========== Left Panel ========== */
 .left-panel {
