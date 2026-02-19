@@ -8,27 +8,27 @@ const EXCHANGES = [
 const EXPLANATIONS = {
   default: {
     title: 'Default Exchange',
-    how: 'Every RabbitMQ server has a built-in default exchange (empty string ""). It routes messages where routing key = queue name.',
-    rule: 'routing key must exactly equal the queue name',
-    example: 'Send to "" exchange with routing key "simple-queue" → message goes directly to simple-queue.',
+    how: 'Every RabbitMQ has a built-in default exchange (""). It routes where routing key = queue name.',
+    rule: 'routing key must equal the queue name',
+    example: 'Send with routing key "ping-queue" → message goes to ping-queue.',
   },
   direct: {
     title: 'Direct Exchange',
-    how: 'Routes messages to queues whose binding key exactly matches the routing key. One routing key → one queue.',
+    how: 'Routes to queues whose binding key exactly matches the routing key.',
     rule: 'routing key must exactly match the binding key',
-    example: '"pay.alipay" → alipay-queue only. "pay.wechat" → wechat-queue only. "pay.creditcard" → no match, message dropped!',
+    example: '"action.attack" → attack-queue. "action.heal" → heal-queue. "action.fly" → dropped!',
   },
   topic: {
     title: 'Topic Exchange',
-    how: 'Routes messages using wildcard patterns. Routing keys are dot-separated words (e.g. "order.error"). Bindings use * (one word) and # (zero or more words).',
-    rule: '* = exactly one word, # = zero or more words',
-    example: '"order.error" matches *.error, order.*, and # → 3 queues receive it. "payment.info" only matches # → 1 queue.',
+    how: 'Routes using wildcard patterns on dot-separated words. * = one word, # = zero or more words.',
+    rule: '* matches one word, # matches zero or more',
+    example: '"player.critical" matches *.critical, player.*, and # → 3 queues. "npc.info" → only # matches.',
   },
   fanout: {
     title: 'Fanout Exchange',
-    how: 'Broadcasts messages to ALL bound queues. Routing key is completely ignored. Every bound queue gets a copy.',
+    how: 'Broadcasts to ALL bound queues. Routing key is completely ignored.',
     rule: 'routing key is ignored — all queues receive every message',
-    example: 'One payment event → SMS service, Email service, and Push service all receive it simultaneously.',
+    example: 'Boss defeated → chat, leaderboard, and achievements all update simultaneously.',
   },
 };
 
@@ -58,7 +58,7 @@ export default function ExchangeSelector({ selected, onSelect }) {
           <span className="rule-label">Rule:</span> {explanation.rule}
         </div>
         <div className="explanation-example">
-          <span className="rule-label">Example:</span> {explanation.example}
+          <span className="rule-label">Try:</span> {explanation.example}
         </div>
       </div>
     </div>

@@ -15,24 +15,21 @@ public class TopicConsumer {
 
     private final MessageNotifier notifier;
 
-    @RabbitListener(queues = "error-queue")
-    public void handleError(Map<String, Object> message) {
-        log.info("[ERROR log] received: source={}, message={}",
-                message.get("source"), message.get("message"));
-        notifier.notifyConsumption("topic", "error-queue", "ErrorConsumer", message);
+    @RabbitListener(queues = "critical-log")
+    public void handleCritical(Map<String, Object> message) {
+        log.info("[CRITICAL] received: {}", message);
+        notifier.notifyConsumption("topic", "critical-log", "CriticalHandler", message);
     }
 
-    @RabbitListener(queues = "order-log-queue")
-    public void handleOrderLog(Map<String, Object> message) {
-        log.info("[ORDER log] received: level={}, message={}",
-                message.get("level"), message.get("message"));
-        notifier.notifyConsumption("topic", "order-log-queue", "OrderLogConsumer", message);
+    @RabbitListener(queues = "player-log")
+    public void handlePlayerLog(Map<String, Object> message) {
+        log.info("[PLAYER] received: {}", message);
+        notifier.notifyConsumption("topic", "player-log", "PlayerHandler", message);
     }
 
-    @RabbitListener(queues = "all-log-queue")
-    public void handleAllLog(Map<String, Object> message) {
-        log.info("[ALL log] received: source={}, level={}, message={}",
-                message.get("source"), message.get("level"), message.get("message"));
-        notifier.notifyConsumption("topic", "all-log-queue", "AllLogConsumer", message);
+    @RabbitListener(queues = "world-log")
+    public void handleWorldLog(Map<String, Object> message) {
+        log.info("[WORLD] received: {}", message);
+        notifier.notifyConsumption("topic", "world-log", "WorldHandler", message);
     }
 }

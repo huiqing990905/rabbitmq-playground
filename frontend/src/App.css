@@ -560,13 +560,25 @@
   text-align: center;
   color: var(--text-dim);
   font-size: 0.8rem;
-  padding: 2rem 1rem;
+  padding: 3rem 1rem;
+}
+
+.log-empty-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.4;
+}
+
+.log-empty-hint {
+  font-size: 0.7rem;
+  margin-top: 0.3rem;
+  opacity: 0.6;
 }
 
 .log-entry {
-  padding: 0.5rem 0.65rem;
-  margin-bottom: 0.4rem;
-  border-radius: 6px;
+  padding: 0.6rem 0.7rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
   background: var(--surface);
   border-left: 3px solid var(--border);
   animation: slideIn 0.3s ease-out;
@@ -585,31 +597,40 @@
 .log-entry-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.2rem;
+  align-items: center;
+  margin-bottom: 0.35rem;
 }
 
 .log-queue {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: var(--text);
-}
-
-.log-consumer {
-  font-size: 0.65rem;
-  color: var(--text-dim);
-}
-
-.log-message {
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  word-break: break-all;
+  font-family: 'SF Mono', 'Fira Code', monospace;
 }
 
 .log-time {
   font-size: 0.6rem;
   color: var(--text-dim);
-  margin-top: 0.2rem;
   opacity: 0.6;
+}
+
+.log-body {
+  font-size: 0.82rem;
+  color: var(--text);
+  padding: 0.3rem 0;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.log-footer {
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  margin-top: 0.2rem;
+}
+
+.log-footer strong {
+  color: var(--text);
+  font-weight: 600;
 }
 
 /* ========== Responsive ========== */

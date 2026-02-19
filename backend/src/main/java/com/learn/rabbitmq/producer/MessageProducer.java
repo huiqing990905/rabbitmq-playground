@@ -25,10 +25,10 @@ public class MessageProducer {
 
         return switch (exchange) {
             case "default" -> {
-                rabbitTemplate.convertAndSend("", "simple-queue", message);
-                log.info(">>> [SIMPLE] sent to simple-queue, msg={}", message);
+                rabbitTemplate.convertAndSend("", "ping-queue", message);
+                log.info(">>> [PING] sent to ping-queue, msg={}", message);
                 yield Map.of("success", true, "exchange", "default",
-                        "routingKey", "simple-queue", "timestamp", timestamp);
+                        "routingKey", "ping-queue", "timestamp", timestamp);
             }
             case "direct" -> {
                 rabbitTemplate.convertAndSend("direct-ex", routingKey, message);

@@ -13,15 +13,15 @@ public class DirectConsumer {
 
     private final MessageNotifier notifier;
 
-    @RabbitListener(queues = "alipay-queue")
-    public void handleAlipay(String message) {
-        log.info("[Alipay] received: {}", message);
-        notifier.notifyConsumption("direct", "alipay-queue", "AlipayConsumer", message);
+    @RabbitListener(queues = "attack-queue")
+    public void handleAttack(String message) {
+        log.info("[ATTACK] received: {}", message);
+        notifier.notifyConsumption("direct", "attack-queue", "AttackHandler", message);
     }
 
-    @RabbitListener(queues = "wechat-queue")
-    public void handleWechat(String message) {
-        log.info("[Wechat] received: {}", message);
-        notifier.notifyConsumption("direct", "wechat-queue", "WechatConsumer", message);
+    @RabbitListener(queues = "heal-queue")
+    public void handleHeal(String message) {
+        log.info("[HEAL] received: {}", message);
+        notifier.notifyConsumption("direct", "heal-queue", "HealHandler", message);
     }
 }

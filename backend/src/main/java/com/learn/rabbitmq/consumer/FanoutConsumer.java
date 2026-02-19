@@ -15,21 +15,21 @@ public class FanoutConsumer {
 
     private final MessageNotifier notifier;
 
-    @RabbitListener(queues = "notify-sms-queue")
-    public void handleSms(Map<String, Object> message) {
-        log.info("[SMS] received broadcast: {}", message);
-        notifier.notifyConsumption("fanout", "notify-sms-queue", "SmsConsumer", message);
+    @RabbitListener(queues = "chat-channel")
+    public void handleChat(Map<String, Object> message) {
+        log.info("[CHAT] received broadcast: {}", message);
+        notifier.notifyConsumption("fanout", "chat-channel", "ChatHandler", message);
     }
 
-    @RabbitListener(queues = "notify-email-queue")
-    public void handleEmail(Map<String, Object> message) {
-        log.info("[Email] received broadcast: {}", message);
-        notifier.notifyConsumption("fanout", "notify-email-queue", "EmailConsumer", message);
+    @RabbitListener(queues = "leaderboard")
+    public void handleLeaderboard(Map<String, Object> message) {
+        log.info("[LEADERBOARD] received broadcast: {}", message);
+        notifier.notifyConsumption("fanout", "leaderboard", "LeaderboardHandler", message);
     }
 
-    @RabbitListener(queues = "notify-push-queue")
-    public void handlePush(Map<String, Object> message) {
-        log.info("[Push] received broadcast: {}", message);
-        notifier.notifyConsumption("fanout", "notify-push-queue", "PushConsumer", message);
+    @RabbitListener(queues = "achievement-tracker")
+    public void handleAchievement(Map<String, Object> message) {
+        log.info("[ACHIEVEMENT] received broadcast: {}", message);
+        notifier.notifyConsumption("fanout", "achievement-tracker", "AchievementHandler", message);
     }
 }

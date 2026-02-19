@@ -2,26 +2,26 @@ import { useState, useEffect } from 'react';
 
 const PRESETS = {
   default: {
-    routingKey: 'simple-queue',
-    message: 'Hello RabbitMQ!',
+    routingKey: 'ping-queue',
+    message: 'pong!',
     showRoutingKey: false,
     quickKeys: [],
   },
   direct: {
-    routingKey: 'pay.alipay',
-    message: '',
+    routingKey: 'action.attack',
+    message: 'Slash with sword!',
     showRoutingKey: true,
-    quickKeys: ['pay.alipay', 'pay.wechat', 'pay.creditcard'],
+    quickKeys: ['action.attack', 'action.heal', 'action.fly'],
   },
   topic: {
-    routingKey: 'order.error',
-    message: 'Log message',
+    routingKey: 'player.critical',
+    message: 'Player took massive damage',
     showRoutingKey: true,
-    quickKeys: ['order.error', 'order.info', 'payment.error', 'payment.info', 'user.warning'],
+    quickKeys: ['player.critical', 'player.info', 'npc.critical', 'npc.info', 'boss.warning'],
   },
   fanout: {
     routingKey: '',
-    message: 'Broadcast event',
+    message: 'Boss has been defeated!',
     showRoutingKey: false,
     quickKeys: [],
   },
@@ -80,7 +80,7 @@ export default function MessageForm({ exchange, onSend, onRoutingKeyChange, send
             <div className={`prediction-hint ${predictedCount > 0 ? 'has-match' : 'no-match'}`}>
               {predictedCount > 0
                 ? `${predictedCount} queue${predictedCount > 1 ? 's' : ''} will receive this message`
-                : 'No queues match this routing key'}
+                : 'No queues match — message will be dropped!'}
             </div>
           )}
         </div>
@@ -94,7 +94,7 @@ export default function MessageForm({ exchange, onSend, onRoutingKeyChange, send
 
       {!preset.showRoutingKey && exchange === 'default' && (
         <div className="form-note">
-          Routing key = "simple-queue" (equals the queue name).
+          Routing key = "ping-queue" (equals the queue name).
         </div>
       )}
 

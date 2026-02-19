@@ -13,9 +13,9 @@ public class SimpleConsumer {
 
     private final MessageNotifier notifier;
 
-    @RabbitListener(queues = "simple-queue")
-    public void handleSimple(String message) {
-        log.info("[SIMPLE] received: {}", message);
-        notifier.notifyConsumption("default", "simple-queue", "SimpleConsumer", message);
+    @RabbitListener(queues = "ping-queue")
+    public void handlePing(String message) {
+        log.info("[PING] received: {}", message);
+        notifier.notifyConsumption("default", "ping-queue", "PingHandler", message);
     }
 }

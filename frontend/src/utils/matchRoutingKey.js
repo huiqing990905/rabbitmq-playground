@@ -2,30 +2,30 @@ const TOPOLOGIES = {
   default: {
     exchange: { name: '(Default)', type: 'direct' },
     bindings: [
-      { bindingKey: 'simple-queue', queue: 'simple-queue', consumer: 'SimpleConsumer' },
+      { bindingKey: 'ping-queue', queue: 'ping-queue', consumer: 'PingHandler' },
     ],
   },
   direct: {
     exchange: { name: 'direct-ex', type: 'direct' },
     bindings: [
-      { bindingKey: 'pay.alipay', queue: 'alipay-queue', consumer: 'AlipayConsumer' },
-      { bindingKey: 'pay.wechat', queue: 'wechat-queue', consumer: 'WechatConsumer' },
+      { bindingKey: 'action.attack', queue: 'attack-queue', consumer: 'AttackHandler' },
+      { bindingKey: 'action.heal', queue: 'heal-queue', consumer: 'HealHandler' },
     ],
   },
   topic: {
     exchange: { name: 'topic-ex', type: 'topic' },
     bindings: [
-      { bindingKey: '*.error', queue: 'error-queue', consumer: 'ErrorConsumer' },
-      { bindingKey: 'order.*', queue: 'order-log-queue', consumer: 'OrderLogConsumer' },
-      { bindingKey: '#', queue: 'all-log-queue', consumer: 'AllLogConsumer' },
+      { bindingKey: '*.critical', queue: 'critical-log', consumer: 'CriticalHandler' },
+      { bindingKey: 'player.*', queue: 'player-log', consumer: 'PlayerHandler' },
+      { bindingKey: '#', queue: 'world-log', consumer: 'WorldHandler' },
     ],
   },
   fanout: {
     exchange: { name: 'fanout-ex', type: 'fanout' },
     bindings: [
-      { bindingKey: '(all)', queue: 'notify-sms-queue', consumer: 'SmsConsumer' },
-      { bindingKey: '(all)', queue: 'notify-email-queue', consumer: 'EmailConsumer' },
-      { bindingKey: '(all)', queue: 'notify-push-queue', consumer: 'PushConsumer' },
+      { bindingKey: '(all)', queue: 'chat-channel', consumer: 'ChatHandler' },
+      { bindingKey: '(all)', queue: 'leaderboard', consumer: 'LeaderboardHandler' },
+      { bindingKey: '(all)', queue: 'achievement-tracker', consumer: 'AchievementHandler' },
     ],
   },
 };
@@ -103,27 +103,27 @@ export function explainMatch(exchangeType, routingKey, bindingKey) {
   if (exchangeType === 'default') {
     return routingKey === bindingKey
       ? `"${routingKey}" = queue name`
-      : `"${routingKey}" != queue name "${bindingKey}"`;
+      : `"${routingKey}" != "${bindingKey}"`;
   }
   if (exchangeType === 'direct') {
     return routingKey === bindingKey
-      ? `"${routingKey}" exactly matches "${bindingKey}"`
+      ? `"${routingKey}" exactly matches`
       : `"${routingKey}" != "${bindingKey}"`;
   }
   if (exchangeType === 'topic') {
     const matched = topicMatch(routingKey, bindingKey);
-    if (bindingKey === '#') return matched ? `"#" matches everything` : '';
+    if (bindingKey === '#') return matched ? `# matches everything` : '';
     if (bindingKey.includes('*')) {
       const routingParts = routingKey.split('.');
       const bindingParts = bindingKey.split('.');
       if (matched) {
         const explanations = bindingParts.map((bp, i) => {
-          if (bp === '*') return `* matches "${routingParts[i] || '?'}"`;
+          if (bp === '*') return `* = "${routingParts[i] || '?'}"`;
           return `"${bp}" = "${routingParts[i] || '?'}"`;
         });
         return explanations.join(', ');
       }
-      return `Pattern "${bindingKey}" does not match "${routingKey}"`;
+      return `"${bindingKey}" doesn't match`;
     }
     return matched ? `exact match` : `no match`;
   }
