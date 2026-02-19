@@ -99,3 +99,7 @@ Open http://localhost:5173
 - Producer → Exchange → Binding → Queue → Consumer message flow
 - WebSocket (STOMP) for real-time server-to-client push
 - Deploying a full-stack app on free-tier cloud services
+
+## Built With
+
+This project was built with the help of [Cursor](https://cursor.com), an AI-powered code editor.
