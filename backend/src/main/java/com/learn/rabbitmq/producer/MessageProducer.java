@@ -31,8 +31,7 @@ public class MessageProducer {
                         "routingKey", "simple-queue", "timestamp", timestamp);
             }
             case "direct" -> {
-                String msg = "Direct [" + routingKey + "] " + timestamp;
-                rabbitTemplate.convertAndSend("direct-ex", routingKey, msg);
+                rabbitTemplate.convertAndSend("direct-ex", routingKey, message);
                 log.info(">>> [DIRECT] sent to direct-ex, routingKey={}", routingKey);
                 yield Map.of("success", true, "exchange", "direct",
                         "routingKey", routingKey, "timestamp", timestamp);
